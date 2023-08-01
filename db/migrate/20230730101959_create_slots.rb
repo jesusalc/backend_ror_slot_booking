@@ -6,5 +6,12 @@ class CreateSlots < ActiveRecord::Migration[7.0]
 
       t.timestamps
     end
+
+    create_table :opens do |t|
+      t.datetime :start
+      t.datetime :end
+
+      t.timestamps
+    end
   end
 end
