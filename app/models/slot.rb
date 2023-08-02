@@ -7,9 +7,8 @@ class Slot < ApplicationRecord
   def end_after_start
     return if self[:end].blank? || self[:start].blank?
 
-    if self[:end] <= self[:start]
-      errors.add(:end, "must be after the start time")
-    end
+    return unless self[:end] <= self[:start]
+
+    errors.add(:end, 'must be after the start time')
   end
 end
-
