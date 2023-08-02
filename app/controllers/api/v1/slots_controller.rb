@@ -8,13 +8,18 @@ module Api
     slots = Slot.all.order(:start)
 
     # Transform slots into a more useful structure
-    slots_by_date = slots.group_by { |slot| slot.start.to_date }
-    booked_slots = slots_by_date.map do |date, slots_on_date|
-      { date: date, count: slots_on_date.count }
+    slots_by_datetime = slots.group_by { |slot| slot.start.in_time_zone("UTC") }
+    booked_slots = slots_by_datetime.map do |datetime, slots_on_datetime|
+      { date: datetime, count: slots_on_datetime.count }
     end
 
     render json: { error: '', data: {slots: booked_slots}, status: :created }
+
+  rescue Date::Error
+    return render json: { error: 'Invalid all_booked_slots call format', data: '', status: :bad_request }
   end
+f
+
 
   # Fetch booked slots based on date and duration
   def booked_slots
