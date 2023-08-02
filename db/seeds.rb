@@ -23,7 +23,10 @@ slots = [
  {"start": "2023-08-01T11:30:00.000Z", "end": "2023-08-01T13:00:00.000Z" },
  {"start": "2023-08-01T13:00:00.000Z", "end": "2023-08-01T13:10:00.000Z" }]
 
-puts "Hardcoded booked slots ... go get your coffee this takes about 15 minutes in an intel i5"
+puts "Hardcoded booked slots" 
+puts "... go get your coffee this takes about 15 minutes in an intel i5"
+puts "... not so fast there"
+puts ".... but takes about 2-4 minutes in an M2 mac arm 64"
 slots.each do |slot|
   Slot.create!(slot)
 end

@@ -18,7 +18,7 @@ module Api
   rescue Date::Error
     return render json: { error: 'Invalid all_booked_slots call format', data: '', status: :bad_request }
   end
-f
+
 
 
   # Fetch booked slots based on date and duration
