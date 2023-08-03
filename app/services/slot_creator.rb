@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # app/services/slot_creator.rb
 class SlotCreator
   def self.create(params)

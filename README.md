@@ -105,4 +105,18 @@ or
 ```
 
 
+### Linting
 
+run this to generate .rubocop_todo.yml
+```bash
+    rubocop --auto-gen-config
+```
+to run linter 
+do
+```bash
+    ./test.sh
+```
+or   
+```bash
+    rubocop -a
+```

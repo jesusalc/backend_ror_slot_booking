@@ -1,5 +1,9 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
+# frozen_string_literal: true
+
+# This file should contain all the record creation needed to seed the
+# database with its default values.
+# The data can then be loaded with the bin/rails db:seed command (or created alongside
+# the database with db:setup).
 #
 # Examples:
 #
@@ -33,7 +37,7 @@ slots.each do |slot|
 end
 
 # opens = [
-#  { "id": "bd8fc476-ac50-3327-4ece-d73897796852", "start": "2022-02-01T20:00:00.000Z", "end": "2022-02-01T22:30:00.000Z" },
+#  { "id": "....", "start": "2022-02-01T20:00:00.000Z", "end": "2022-02-01T22:30:00.000Z" },
 # ]
 # Assuming 'opens' is an empty array to start with
 opens = []
@@ -70,7 +74,6 @@ slots = []
 
 # Define the start and end date ranges (from now to 2 years)
 start_date = DateTime.now
-end_date = DateTime.now + 2.years
 
 # Loop through the date range
 while start_date <= target_date

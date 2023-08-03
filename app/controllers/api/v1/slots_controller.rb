@@ -11,18 +11,15 @@ module Api
       def all_booked_slots
         booked_slots = SlotService.all_booked_slots
         render json: { error: '', data: { slots: booked_slots }, status: :created }
-      rescue Date::Error
-        render json: { error: 'Invalid all_booked_slots call format', data: '', status: :bad_request }
-      rescue StandardError => e
-        Rails.logger.error e.message
-        Rails.logger.error e.backtrace.join("\n")
-        render json: { error: 'An unexpected error occurred', data: '', status: :internal_server_error }
       end
 
       def booked_slots
         validation = BookedSlotsValidator.new(request_params).validate
 
-        return render json: { error: validation[:error], data: '', status: :bad_request } unless validation[:success]
+        unless validation[:success]
+          return render json: { error: validation[:error], data: '',
+                                status: :bad_request }
+        end
 
         date_param = request_params[:date]
         duration_param = request_params[:duration].to_i
@@ -50,7 +47,10 @@ module Api
       def create
         validation = CreateSlotValidator.new(slot_params).validate
 
-        return render json: { error: validation[:error], data: '', status: :bad_request } unless validation[:success]
+        unless validation[:success]
+          (return render json: { error: validation[:error], data: '',
+                                 status: :bad_request })
+        end
 
         result = SlotCreator.create(slot_params)
         if result[:success]

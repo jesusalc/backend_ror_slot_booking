@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # app/services/slot_service.rb
 class SlotService
   def self.all_booked_slots

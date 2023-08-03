@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Open < ApplicationRecord
   validates :start, :end, presence: true
   validate :end_after_start
