@@ -1,9 +1,12 @@
-# frozen-literals
+# frozen_string_literal: true
 
+# Controller base to /api/v1 endpoints for /api/v1/slots
 module Api
   module V1
+    # Controller base to CRUD booked slots
     class SlotsController < ApplicationController
       include ErrorHandling
+      rescue_from ActiveRecord::RecordInvalid, with: :handle_record_invalid
 
       def all_booked_slots
         booked_slots = SlotService.all_booked_slots
@@ -42,12 +45,6 @@ module Api
         end
 
         render json: { error: '', data: { slots: booked_slots }, status: :created }
-      rescue Date::Error
-        render json: { error: 'Invalid date format', data: '', status: :bad_request }
-      rescue StandardError => e
-        Rails.logger.error e.message
-        Rails.logger.error e.backtrace.join("\n")
-        render json: { error: 'An unexpected error occurred', data: '', status: :internal_server_error }
       end
 
       def create
@@ -57,10 +54,11 @@ module Api
 
         result = SlotCreator.create(slot_params)
         if result[:success]
-          render json: { error: '', data: { message: result[:message] }, status: :created }
-        else
-          render json: { error: result[:errors], data: '', status: :unprocessable_entity }
+          return render json: { error: '', data: { message: result[:message] },
+                                status: :created }
         end
+
+        render json: { error: result[:errors], data: '', status: :unprocessable_entity }
       end
 
       private
@@ -75,6 +73,10 @@ module Api
 
       def end_after_start
         errors.add(:end, 'must be after the start time') if start >= self.end
+      end
+
+      def handle_record_invalid(exception)
+        render json: { error: exception.message, data: '', status: :unprocessable_entity }
       end
     end
   end

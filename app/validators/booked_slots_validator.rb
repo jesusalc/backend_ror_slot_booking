@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # app/validators/booked_slots_validator.rb
 class BookedSlotsValidator
   attr_reader :date, :duration
